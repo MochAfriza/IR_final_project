@@ -14,7 +14,7 @@ class Artikel extends CI_Controller {
         $artikel = $this->input->post('isi_artikel');
         $data = array('text' => $artikel);
         $url = 'https://api.prosa.ai/v1/topics';
-        echo $this->curl->postCURL($url, $data);  
+        echo $this->curl->postCURL($url, json_encode($data));  
     }
 }
 
