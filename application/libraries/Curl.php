@@ -1,9 +1,7 @@
 <?php
 class Curl {
     public function postCURL($_url, $_param){
-        // membuat pasangan name dan value dipisahkan tanda '&'
         $curl = curl_init();
-
         $option = array(
             CURLOPT_URL => $_url,
             CURLOPT_RETURNTRANSFER => true,
@@ -19,14 +17,10 @@ class Curl {
                 "x-api-key: nJIbq6CBWsD7BrlwlZk2NVHFwveR3AY1yTaC1UAW"
             )
         );
-
         curl_setopt_array($curl, $option);
-
         $response = curl_exec($curl);
         $err = curl_error($curl);
-
         curl_close($curl);
-
         if ($err) {
             return "cURL Error #:" . $err;
         } else {
