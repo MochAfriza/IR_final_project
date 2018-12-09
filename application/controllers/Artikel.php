@@ -9,14 +9,28 @@ class Artikel extends CI_Controller {
     }
 
     function index(){
+        $artikel = $this->db->get('artikel');
+        $this->load->view('view', compact('artikel'));
+    }
+
+    function form_insert(){
         $this->load->view('form_artikel');
     }
 
     function add_artikel(){
+        $judul = $this->input->post('judul_artikel');
         $artikel = $this->input->post('isi_artikel');
         $data = array('text' => $artikel);
         $url = 'https://api.prosa.ai/v1/topics';
-        echo $this->curl->postCURL($url, $data);  
+        $result = json_decode($this->curl->postCURL($url, $data), true);
+        $inserted = array(
+            'judul' => $judul, 
+            'isi' => $artikel, 
+            'topic' => $result['topic'], 
+            'confidence' => $result['confidence']
+        );
+        $this->db->insert('artikel', $inserted); 
+        redirect(base_url('artikel'));
     }
 }
 
