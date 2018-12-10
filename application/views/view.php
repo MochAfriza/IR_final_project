@@ -28,6 +28,7 @@
             <?php
             } else {      
                 foreach ($artikel->result() as $art): ?>
+                <tr>
                     <td><?php echo $art->judul; ?></td>
                     <td><?php echo $art->topic; ?></td>
                     <td><?php echo $art->confidence; ?></td>
@@ -35,6 +36,7 @@
                         <a href="">Edit</a>
                         <a href="">Delete</a>
                     </td>
+                </tr>
                 <?php endforeach; 
             }?>
         </tbody>
