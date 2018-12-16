@@ -15,12 +15,14 @@
     <a href="<?php echo base_url('artikel/form_insert'); ?>">Tambah Artikel</a>
     <table style="width: 100%" border="1px solid black" border-collapse="collapse">
         <thead>
+       
             <tr>
                 <th>Judul Artikel</th>
                 <th>Topik</th>
                 <th>Confidence</th>
                 <th>Actions</th>
             </tr>
+
         </thead>
         <tbody>
             <?php if ($artikel->num_rows() == 0){ ?>
@@ -33,13 +35,14 @@
                     <td><?php echo $art->topic; ?></td>
                     <td><?php echo $art->confidence; ?></td>
                     <td>
-                        <a href="">Edit</a>
-                        <a href="">Delete</a>
+                        <?php echo anchor('Artikel/update/'.$art->id,'Edit'); ?> 
+                       <?php echo anchor('Artikel/hapus/'.$art->id,'Hapus'); ?>  
                     </td>
                 </tr>
                 <?php endforeach; 
             }?>
         </tbody>
+       
     </table>
 </body>
 </html>
