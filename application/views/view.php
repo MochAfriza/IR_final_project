@@ -37,6 +37,7 @@
                     <td>
                         <?php echo anchor('artikel/form_edit/'.$art->id, 'Edit'); ?> 
                        <?php echo anchor('artikel/hapus/'.$art->id, 'Hapus'); ?>  
+                       <?php echo anchor('artikel/selanjutnya/'.$art->id, 'Detail'); ?>  
                     </td>
                 </tr>
                 <?php endforeach; 

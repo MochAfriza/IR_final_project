@@ -40,6 +40,11 @@ class Artikel extends CI_Controller {
         redirect(base_url('artikel'));
     }
 
+    function delete($id){
+      $this->Mdl_produk->delete_by_id($id);
+      echo json_encode(array("status" => TRUE));
+    }
+
     function form_edit($id){
         $where = array('id' => $id);
         $data['artikel'] = $this->mdl_artikel->edit_data($where, 'artikel')->row();
@@ -65,5 +70,12 @@ class Artikel extends CI_Controller {
 		$this->mdl_artikel->update_data('artikel', $where, $updated);
 		redirect(base_url('artikel'));
     }
+
+    function selanjutnya() {
+        $id=$this->uri->segment(3);
+        $artikel['artikel']=$this->mdl_artikel->per_id($id);
+        $this->load->view('view_detail',$artikel);
+    }
 }
+
 ?>
