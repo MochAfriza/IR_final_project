@@ -6,8 +6,7 @@ class Mdl_artikel extends CI_Model{
 		return $this->db->get_where($table,$where);
 	}
 
-	function update_data($where,$data,$table){
-		$this->db->where($where);
-		$this->db->update($table,$data);
+	function update_data($table, $where, $data){
+		$this->db->where($where)->update($table,$data);
 	}	
 }

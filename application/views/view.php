@@ -35,8 +35,8 @@
                     <td><?php echo $art->topic; ?></td>
                     <td><?php echo $art->confidence; ?></td>
                     <td>
-                        <?php echo anchor('Artikel/update/'.$art->id,'Edit'); ?> 
-                       <?php echo anchor('Artikel/hapus/'.$art->id,'Hapus'); ?>  
+                        <?php echo anchor('artikel/form_edit/'.$art->id, 'Edit'); ?> 
+                       <?php echo anchor('artikel/hapus/'.$art->id, 'Hapus'); ?>  
                     </td>
                 </tr>
                 <?php endforeach; 

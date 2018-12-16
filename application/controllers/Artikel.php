@@ -6,6 +6,7 @@ class Artikel extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->library('curl');
+		$this->load->model('mdl_artikel');
     }
 
     function index(){
@@ -17,7 +18,6 @@ class Artikel extends CI_Controller {
         $this->load->view('form_artikel');
     }
   
-
     function add_artikel(){
         $judul = $this->input->post('judul_artikel');
         $artikel = $this->input->post('isi_artikel');
@@ -41,27 +41,29 @@ class Artikel extends CI_Controller {
     }
 
     function form_edit($id){
-       // $where = array('id' => $id);
-        //$data['artikel'] = $this->mdl_artikel->edit_data('artikel',$where)->result();
-        $this->load->view('edit_artikel');
+        $where = array('id' => $id);
+        $data['artikel'] = $this->mdl_artikel->edit_data($where, 'artikel')->row();
+        $this->load->view('edit_artikel', $data);
     }
 
     function update(){
-    $id = $this->input->post('id');
-    $judul = $this->input->post('judul_artikel');
-    $artikel = $this->input->post('isi_artikel');
-
-    $data = array(
-        'judul' => $judul, 
-            'isi' => $artikel, 
-        );
-
-    $where = array(
-        'id' => $id
-    );
-
-    $this->mdl_artikel->update_data('artikel',$where,$data);
-    redirect(base_url('artikel'));
+		$id = $this->input->post('id');
+		$judul = $this->input->post('judul_artikel');
+		$artikel = $this->input->post('isi_artikel');
+		$data = array('text' => $artikel);
+		$url = 'https://api.prosa.ai/v1/topics';
+		$result = json_decode($this->curl->postCURL($url, $data), true);
+		$updated = array(
+			'judul' => $judul, 
+			'isi' => $artikel, 
+			'topic' => $result['topic'], 
+			'confidence' => $result['confidence']
+		);
+		$where = array(
+			'id' => $id
+		);
+		$this->mdl_artikel->update_data('artikel', $where, $updated);
+		redirect(base_url('artikel'));
     }
 }
 ?>
